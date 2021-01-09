@@ -4,7 +4,7 @@ heroImage: /assets/images/blog_logo.png
 heroText: 落雪飘红
 tagline: 个人博客
 actionText: 进入笔记 →
-actionLink: /guide/
+actionLink: /javaScript/basics/
 features:
 - title: 简洁至上
   details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
