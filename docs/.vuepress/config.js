@@ -1,6 +1,7 @@
 module.exports = {
     title: '落雪飘红',
     description: '个人笔记',
+    base: '/vuepress-blog/',
     head: [
         ['link', { rel: 'icon', href: '/assets/images/blog_logo.png' }]
     ],
@@ -41,7 +42,7 @@ module.exports = {
                     }
                 ]
             },
-            { text: 'Github', link: 'https://github.com/luoxuepiaohong' }
+            { text: 'Github', link: 'https://github.com/luoxuepiaohong/vuepress-blog' }
         ],
         sidebar: {
             '/javaScript/': [
