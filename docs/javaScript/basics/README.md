@@ -34,15 +34,25 @@ for(let i=0; i<10; i++){
 > 一旦定义必须复制，且值（基本类型）不能被更改；<br>
 > 引用类型（对象和数组）里面的属性值、元素值可以更改，但本身不能重新赋值；<br>
 > 使引用类型的值不可更改的方法： **`Object.freeze(value);`**  <br>
+> 冻结一个对象后该对象的原型也不能被修改<br>
 > 若引用类型的值是引用类型，则该值依然可被更改，冻结引用类型所有值的方法：
 ```javascript
-function customFreeze(obj){
-    Object.freeze(obj);
-    for(var key in obj){
-        if(obj[key] && typeof(obj[key] === 'object')){
-            Object.freeze(obj[key]);
-        }
-    }
+function deepFreeze(obj) {
+
+  // 取回定义在obj上的属性名
+  var propNames = Object.getOwnPropertyNames(obj);
+
+  // 在冻结自身之前冻结属性
+  propNames.forEach(function(name) {
+    var prop = obj[name];
+
+    // 如果prop是个对象，冻结它
+    if (typeof prop == 'object' && prop !== null)
+      deepFreeze(prop);
+  });
+
+  // 冻结自身
+  return Object.freeze(obj);
 }
 ```
 
@@ -130,7 +140,7 @@ function test5(){}(1);      //不报错也不执行，此处编译器把 (1) 理
 > 构造函数运行使用 return 语句。如果返回值为原始值，则将被忽略，直接返回 this 指代的实例对象；
 > 如果返回值为引用值，则将覆盖 this 指代的实例，返回 return 后面跟随的引用值。
 
-> 之所以会出现这种情况，与 new 命令解析过程有关系，使用 new 命令调用函数的解析过程如下：
+> 之所以会出现这种情况，与 new 命令解析过程有关系，使用 new 命令调用函数的解析过程如下：<br>
 > &emsp;&emsp;当使用 new 命令调用函数时，先创建一个空对象，作为实例返回。<br>
 > &emsp;&emsp;设置实例的原型，指向构造函数的 prototype 属性。<br>
 > &emsp;&emsp;设置构造函数体内的 this 值，让它指向实例。<br>
@@ -151,3 +161,82 @@ function Car(color){
 
 let car = new Car('red');       //car => {color: 'red'}
 ```
+
+## 闭包
+> **定义**：内部函数总是可以访问其所在的外部函数中声明的参数和变量<br>
+> **结论**：闭包找到的是同一地址中父级函数中对应变量的最终值<br>
+> **缺点**：闭包会使得父级函数的作用域链不释放，过渡的闭包可能会导致内存泄露<br>
+```javascript
+function test(){
+    var num = 0;
+    function add() {
+        num++;
+        console.log(num);
+    }
+    return add;
+}
+var a = test();
+a();                        //1
+a();                        //2
+var b = test();
+b();                        //1
+b();                        //2
+```
+
+> 使用普通函数实现类闭包功能：可以访问其所在的外部函数中声明的参数和变量<br>
+> 差异：<br>
+> &emsp;&emsp;&emsp;闭包：每次外部函数执行的时候，外部函数的引用地址不同，都会重新创建一个新的地址<br>
+> &emsp;普通函数：每次调用都是指向同一地址(对比上一个例子)
+```javascript
+function test(){
+    var num = 0;
+    function add() {
+        num++;
+        console.log(num);
+    }
+    window.add = add;
+}
+test();
+add();                       //1
+add();                       //2
+
+var add2 = add;
+add2();                      //3
+add2();                      //4
+```
+
+> 使用`立即函数+构造函数`进步一封装成`插件`
+```javascript
+;(function(){
+    var num = 0;
+    function Add(val) {
+        this.num = num + val;
+    }
+    window.Add = Add;
+})();
+
+let a = new Add(1);
+console.log(a.num);         //1
+
+let b = new Add(5);
+console.log(b.num);         //5
+```
+
+> 使用闭包实现`函数柯里化`
+>> 函数柯里化是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术
+```javascript
+var add = function(x) { 
+  var sum = 1; 
+  var tmp = function(x) { 
+      sum = sum + x; 
+      return tmp;    
+  } 
+  tmp.toString = function() { 
+      return sum; 
+  }
+  return tmp; 
+}
+console.log(add(1)(2)(3));  //6
+```
+
+## prototype
