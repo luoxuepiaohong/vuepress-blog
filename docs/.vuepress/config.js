@@ -15,6 +15,12 @@ module.exports = {
                     { text: 'Basics', link: '/javaScript/basics/' }
                 ]
             },
+            {   
+                text: 'Css',
+                items: [
+                    { text: 'Demo', link: '/css/demo/' }
+                ]
+            },
             {
                 text: '工具箱', 
                 items: [
