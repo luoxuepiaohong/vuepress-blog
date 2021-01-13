@@ -17,7 +17,7 @@
 </template>
 <style>
     .frosted-glass, .frosted-glass-main::before {
-        background: url("/assets/images/filter-bg.jpg") no-repeat center center;
+        background: url("../../.vuepress/public/assets/images/filter-bg.jpg") no-repeat center center;
         background-size: cover;
     }
     .frosted-glass {
