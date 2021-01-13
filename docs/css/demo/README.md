@@ -17,7 +17,7 @@
 </template>
 <style>
     .frosted-glass, .frosted-glass-main::before {
-        background: url("../../.vuepress/public/assets/images/filter-bg.jpg") no-repeat center center;
+        background: url("/vuepress-blog/assets/images/filter-bg.jpg") no-repeat center center;
         background-size: cover;
     }
     .frosted-glass {
@@ -60,7 +60,7 @@
 ```
 ```css
 .frosted-glass, .frosted-glass-main::before {
-	background: url("../../.vuepress/public/assets/images/filter-bg.jpg") no-repeat center center;
+	background: url("/vuepress-blog/assets/images/filter-bg.jpg") no-repeat center center;
     background-size: cover;
 }
 .frosted-glass {
@@ -97,7 +97,7 @@
 
 <template>
     <div>
-        <img src="../../.vuepress/public/assets/images/filter-bg.jpg" alt="图片来源：https://unsplash.com/@chshashi30" class="grayscale-class-img">
+        <img src="/vuepress-blog/assets/images/filter-bg.jpg" alt="图片来源：https://unsplash.com/@chshashi30" class="grayscale-class-img">
     </div>
 </template>
 <style>
@@ -109,7 +109,7 @@
 </style>
 
 ```html
-<img src="../../.vuepress/public/assets/images/filter-bg.jpg" class="grayscale-class-img" />
+<img src="/vuepress-blog/assets/images/filter-bg.jpg" class="grayscale-class-img" />
 ```
 ```css
 .grayscale-class-img {
