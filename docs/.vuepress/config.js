@@ -12,7 +12,8 @@ module.exports = {
             {   
                 text: 'JavaScript',
                 items: [
-                    { text: 'Basics', link: '/javaScript/basics/' }
+                    { text: 'Basics', link: '/javaScript/basics/' },
+                    { text: 'LeetCode', link: '/javaScript/leetCode/' }
                 ]
             },
             {   
@@ -55,7 +56,8 @@ module.exports = {
                 {
                     title: 'JavaScript',
                     children: [
-                        '/javaScript/basics/'
+                        '/javaScript/basics/',
+                        '/javaScript/leetCode/'
                     ]
                 }
             ],
